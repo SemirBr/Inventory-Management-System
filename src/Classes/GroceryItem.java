@@ -25,4 +25,14 @@ public class GroceryItem extends InventoryItem {
      public void setCalories(Double calories) {
           this.calories = calories;
      }
+
+     @Override
+     public String toString() {
+          return "GroceryItem{" +
+                  "id=" + super.getId()+
+                  ", quantity=" + super.getQuantity()+
+                  ", availability=" + availability +
+                  ", calories=" + calories +
+                  '}';
+     }
 }

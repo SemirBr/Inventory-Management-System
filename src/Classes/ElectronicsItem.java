@@ -25,4 +25,14 @@ public class ElectronicsItem extends InventoryItem {
     public void setColor(String color) {
         this.color = color;
     }
+
+    @Override
+    public String toString() {
+        return "ElectronicsItem{" +
+                "id=" + super.getId()+
+                ", quantity=" + super.getQuantity()+
+                ", power=" + power +
+                ", color='" + color + '\'' +
+                '}';
+    }
 }

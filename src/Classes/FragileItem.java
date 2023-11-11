@@ -25,4 +25,14 @@ public class FragileItem extends InventoryItem {
     public void setPriceForFragileItems(Double priceForFragileItems) {
         this.priceForFragileItems = priceForFragileItems;
     }
+
+    @Override
+    public String toString() {
+        return "FragileItem{" +
+                "id=" + super.getId()+
+                ", quantity=" + super.getQuantity()+
+                ", weightForFragileItems=" + weightForFragileItems +
+                ", priceForFragileItems=" + priceForFragileItems +
+                '}';
+    }
 }

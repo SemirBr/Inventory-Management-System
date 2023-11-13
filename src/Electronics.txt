@@ -1,1 +1,2 @@
-1,24,34.5,red
+1,50,laptop Acer,1500.0,200.0,black
+2,12,Samsung Galaxy A51,500.0,120.0,white

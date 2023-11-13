@@ -2,13 +2,18 @@ package Classes;
 
 public class FragileItem extends InventoryItem {
     private double weightForFragileItems;
-    private double priceForFragileItems;
+    private double heightForFragileItems;
 
-    public FragileItem(int id, int quantity, double weightForFragileItems, double priceForFragileItems) {
-        super(id, quantity);
+    public FragileItem(int id, int quantity, String name, double price, double weightForFragileItems, double heightForFragileItems) {
+        super(id, quantity, name, price);
         this.weightForFragileItems = weightForFragileItems;
-        this.priceForFragileItems = priceForFragileItems;
+        this.heightForFragileItems = heightForFragileItems;
     }
+
+    public FragileItem(){
+
+    }
+
 
     public double getWeightForFragileItems() {
         return weightForFragileItems;
@@ -18,12 +23,12 @@ public class FragileItem extends InventoryItem {
         this.weightForFragileItems = weightForFragileItems;
     }
 
-    public Double getPriceForFragileItems() {
-        return priceForFragileItems;
+    public Double getHeightForFragileItems() {
+        return heightForFragileItems;
     }
 
-    public void setPriceForFragileItems(Double priceForFragileItems) {
-        this.priceForFragileItems = priceForFragileItems;
+    public void setHeightForFragileItems(Double heightForFragileItems) {
+        this.heightForFragileItems = heightForFragileItems;
     }
 
     @Override
@@ -31,8 +36,10 @@ public class FragileItem extends InventoryItem {
         return "FragileItem{" +
                 "id=" + super.getId()+
                 ", quantity=" + super.getQuantity()+
+                ", name=" + super.getName()+
+                ", price=" + super.getPrice()+
                 ", weightForFragileItems=" + weightForFragileItems +
-                ", priceForFragileItems=" + priceForFragileItems +
+                ", priceForFragileItems=" + heightForFragileItems +
                 '}';
     }
 }

@@ -4,12 +4,14 @@ public class ElectronicsItem extends InventoryItem {
     private double power;
     private String color;
 
-    public ElectronicsItem(int id, int quantity, double power, String color) {
-        super(id, quantity);
+    public ElectronicsItem(int id, int quantity,String name,double price, double power, String color) {
+        super(id, quantity,name,price);
         this.power = power;
         this.color = color;
     }
+    public ElectronicsItem(){
 
+    }
     public double getPower() {
         return power;
     }
@@ -31,6 +33,8 @@ public class ElectronicsItem extends InventoryItem {
         return "ElectronicsItem{" +
                 "id=" + super.getId()+
                 ", quantity=" + super.getQuantity()+
+                ", name=" + super.getName()+
+                ", price=" + super.getPrice()+
                 ", power=" + power +
                 ", color='" + color + '\'' +
                 '}';

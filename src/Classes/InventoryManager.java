@@ -17,8 +17,9 @@ public class InventoryManager {
                 String[] parts = line.split(",");
                 int id = Integer.parseInt(parts[0]);
                 int quantity = Integer.parseInt(parts[1]);
-
-                InventoryItem inventoryItem = new InventoryItem(id, quantity);
+                String name= (parts[2]);
+                double price=Double.parseDouble(parts[3]);
+                InventoryItem inventoryItem = new InventoryItem(id, quantity, name, price);
                 itemList.add(inventoryItem);
             }
         } catch (IOException e) {
@@ -32,7 +33,7 @@ public class InventoryManager {
         try (FileWriter fileWriter = new FileWriter(database, true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-            bufferedWriter.write(inventory.getId() + "," + inventory.getQuantity());
+            bufferedWriter.write(inventory.getId() + "," + inventory.getQuantity()+ "," + inventory.getName()+ "," + inventory.getPrice());
             bufferedWriter.newLine();
 
         } catch (IOException e) {

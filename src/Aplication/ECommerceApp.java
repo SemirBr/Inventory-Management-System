@@ -31,6 +31,10 @@ public class ECommerceApp {
                             inventoryItem.setId(Integer.parseInt(scanner.nextLine()));
                             System.out.println("Insert quantity:");
                             inventoryItem.setQuantity(Integer.parseInt(scanner.nextLine()));
+                            System.out.println("Insert name:");
+                            inventoryItem.setName(scanner.nextLine());
+                            System.out.println("Insert price:");
+                            inventoryItem.setPrice(Double.parseDouble(scanner.nextLine()));
                             inventoryManager.saveInventory(inventoryItem);
                             System.out.println("You have inserted new General Item");
                             break;
@@ -54,11 +58,15 @@ public class ECommerceApp {
                             System.out.println(electronicsItemManager.listOfElectronicsItems());
                             break;
                         case 2:
-                            ElectronicsItem electronicsItem = new ElectronicsItem(0,0,0,null);
+                            ElectronicsItem electronicsItem = new ElectronicsItem();
                             System.out.println("Insert ID:");
                             electronicsItem.setId(Integer.parseInt(scanner.nextLine()));
                             System.out.println("Insert quantity:");
                             electronicsItem.setQuantity(Integer.parseInt(scanner.nextLine()));
+                            System.out.println("Insert name:");
+                            electronicsItem.setName(scanner.nextLine());
+                            System.out.println("Insert price:");
+                            electronicsItem.setPrice(Double.parseDouble(scanner.nextLine()));
                             System.out.println("Insert power:");
                             electronicsItem.setPower(Double.parseDouble(scanner.nextLine()));
                             System.out.println("Insert color:");
@@ -87,15 +95,19 @@ public class ECommerceApp {
                             System.out.println(fragileItemManager.listOfFragileItems());
                             break;
                         case 2:
-                            FragileItem fragileItem = new FragileItem(0,0,0,0);
+                            FragileItem fragileItem = new FragileItem();
                             System.out.println("Insert ID:");
                             fragileItem.setId(Integer.parseInt(scanner.nextLine()));
                             System.out.println("Insert quantity:");
                             fragileItem.setQuantity(Integer.parseInt(scanner.nextLine()));
+                            System.out.println("Insert name:");
+                            fragileItem.setName(scanner.nextLine());
+                            System.out.println("Insert price:");
+                            fragileItem.setPrice(Double.parseDouble(scanner.nextLine()));
                             System.out.println("Insert weight for Fragile Item:");
                             fragileItem.setWeightForFragileItems(Double.parseDouble(scanner.nextLine()));
-                            System.out.println("Insert price for Fragile Item:");
-                            fragileItem.setPriceForFragileItems(Double.parseDouble(scanner.nextLine()));
+                            System.out.println("Insert height for Fragile Item:");
+                            fragileItem.setHeightForFragileItems(Double.parseDouble(scanner.nextLine()));
                             fragileItemManager.saveFragileItem(fragileItem);
                             System.out.println("You have inserted new Fragile Item");
                             break;
@@ -120,11 +132,15 @@ public class ECommerceApp {
                             System.out.println(groceryItemManager.listOfGroceryItems());
                             break;
                         case 2:
-                            GroceryItem groceryItem = new GroceryItem(0,0,true,0);
+                            GroceryItem groceryItem = new GroceryItem();
                             System.out.println("Insert ID:");
                             groceryItem.setId(Integer.parseInt(scanner.nextLine()));
                             System.out.println("Insert quantity:");
                             groceryItem.setQuantity(Integer.parseInt(scanner.nextLine()));
+                            System.out.println("Insert name:");
+                            groceryItem.setName(scanner.nextLine());
+                            System.out.println("Insert price:");
+                            groceryItem.setPrice(Double.parseDouble(scanner.nextLine()));
                             System.out.println("Is it available? (true/false):");
                             groceryItem.setAvailability(Boolean.parseBoolean(scanner.nextLine()));
                             System.out.println("Insert calories:");

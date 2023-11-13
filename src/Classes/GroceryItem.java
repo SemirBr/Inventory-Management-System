@@ -4,10 +4,14 @@ public class GroceryItem extends InventoryItem {
      private boolean availability;
      private double calories;
 
-     public GroceryItem(int id, int quantity, boolean availability, double calories) {
-          super(id, quantity);
+     public GroceryItem(int id, int quantity, String name, double price, boolean availability, double calories) {
+          super(id, quantity, name, price);
           this.availability = availability;
           this.calories = calories;
+     }
+
+     public GroceryItem(){
+
      }
 
      public boolean isAvailability() {
@@ -31,6 +35,8 @@ public class GroceryItem extends InventoryItem {
           return "GroceryItem{" +
                   "id=" + super.getId()+
                   ", quantity=" + super.getQuantity()+
+                  ", name=" + super.getName()+
+                  ", price=" + super.getPrice()+
                   ", availability=" + availability +
                   ", calories=" + calories +
                   '}';

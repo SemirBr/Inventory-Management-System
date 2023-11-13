@@ -16,10 +16,12 @@ public class ElectronicsItemManager {
                 String[] parts = line.split(",");
                 int id = Integer.parseInt(parts[0]);
                 int quantity = Integer.parseInt(parts[1]);
-                double power = Double.parseDouble(parts[2]);
-                String color = (parts[3]);
+                String name= (parts[2]);
+                double price=Double.parseDouble(parts[3]);
+                double power = Double.parseDouble(parts[4]);
+                String color = (parts[5]);
 
-                ElectronicsItem electronicsItem = new ElectronicsItem(id, quantity, power, color);
+                ElectronicsItem electronicsItem = new ElectronicsItem(id,quantity,name,price,power,color);
                 electronicsItemList.add(electronicsItem);
             }
         } catch (IOException e) {
@@ -33,7 +35,7 @@ public class ElectronicsItemManager {
         try (FileWriter fileWriter = new FileWriter(database, true);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 
-            bufferedWriter.write(electronics.getId() + "," + electronics.getQuantity() + "," + electronics.getPower() + "," + electronics.getColor());
+            bufferedWriter.write(electronics.getId() + "," + electronics.getQuantity() + "," +electronics.getName()+ "," + electronics.getPrice()+ "," + electronics.getPower() + "," + electronics.getColor());
             bufferedWriter.newLine();
 
         } catch (IOException e) {
@@ -52,7 +54,7 @@ public class ElectronicsItemManager {
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(database))) {
             for (ElectronicsItem electronics : itemList) {
-                writer.write(electronics.getId() + "," + electronics.getQuantity() + "," + electronics.getPower() + "," + electronics.getColor());
+                writer.write(electronics.getId() + "," + electronics.getQuantity() + electronics.getName()+ "," + electronics.getPrice()+ "," + electronics.getPower() + "," + electronics.getColor());
                 writer.newLine();
             }
         } catch (IOException e) {

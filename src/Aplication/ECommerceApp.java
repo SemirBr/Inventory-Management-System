@@ -11,12 +11,15 @@ public class ECommerceApp {
             ElectronicsItemManager electronicsItemManager = new ElectronicsItemManager();
             FragileItemManager fragileItemManager= new FragileItemManager();
             GroceryItemManager groceryItemManager= new GroceryItemManager();
+            PaymentProcessor paymentProcessor = new PaymentProcessor();
             System.out.println("Welcome to the E-commerce Console Application");
             displayMenu();
             boolean isRunning = true;
             while (isRunning) {
                 System.out.print("Enter Category: ");
                 String category = scanner.nextLine();
+//                System.out.print("Enter User: ");
+//                String user = scanner.nextLine();
 
                 if (category.equals("Inventory Items")) {
                     System.out.print("Enter command (1-4): ");

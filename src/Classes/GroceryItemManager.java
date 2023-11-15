@@ -1,5 +1,7 @@
 package Classes;
 
+import Validation.Validation;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,10 +20,10 @@ public class GroceryItemManager {
                 int quantity = Integer.parseInt(parts[1]);
                 String name= (parts[2]);
                 double price=Double.parseDouble(parts[3]);
-                boolean availability = Boolean.parseBoolean(parts[4]);
+                String type= (parts[4]);
                 double calories = Double.parseDouble(parts[5]);
 
-                GroceryItem groceryItem = new GroceryItem(id, quantity, name, price, availability, calories);
+                GroceryItem groceryItem = new GroceryItem(id, quantity, name, price, type, calories);
                 groceryItemList.add(groceryItem);
             }
         } catch (IOException e) {
@@ -31,17 +33,34 @@ public class GroceryItemManager {
         return groceryItemList;
     }
 
-    public void saveGroceryItem(GroceryItem grocery) {
-        try (FileWriter fileWriter = new FileWriter(database, true);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+    public void saveGroceryItem() {
+        GroceryItem groceryItem = validateGroceryItemData();
+        ArrayList<GroceryItem> groceryItems = listOfGroceryItems();
+        boolean idExists = false;
 
-            bufferedWriter.write(grocery.getId() + "," + grocery.getQuantity() + "," + grocery.getName()+ "," + grocery.getPrice()+ ","  + grocery.isAvailability() + "," + grocery.getCalories());
-            bufferedWriter.newLine();
+        for (GroceryItem item : groceryItems) {
+            if (item.getId() == groceryItem.getId()) {
+                System.err.println("ID already exists.");
+                return;
+            }
+        }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!idExists) {
+            try (FileWriter fileWriter = new FileWriter(database, true);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                bufferedWriter.write(groceryItem.getId() + "," + groceryItem.getQuantity() + ","
+                        + groceryItem.getName() + "," + groceryItem.getPrice() + ","
+                        + groceryItem.getType() + "," + groceryItem.getCalories());
+                bufferedWriter.newLine();
+
+                System.out.println("You have inserted a new Grocery Item.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 
     public void removeGroceryItemById(int id) {
         ArrayList<GroceryItem> itemList = listOfGroceryItems();
@@ -54,11 +73,30 @@ public class GroceryItemManager {
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(database))) {
             for (GroceryItem grocery : itemList) {
-                writer.write(grocery.getId() + "," + grocery.getQuantity() + "," + grocery.getName()+ "," + grocery.getPrice()+ "," + grocery.isAvailability() + "," + grocery.getCalories());
+                writer.write(grocery.getId() + "," + grocery.getQuantity() + "," + grocery.getName() + "," + grocery.getPrice() + "," + grocery.getType() + "," + grocery.getCalories());
                 writer.newLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+        private Validation validation= new Validation();
+
+        private GroceryItem validateGroceryItemData() {
+            System.out.println("Insert Id:");
+            int Id = validation.validateNumber();
+            System.out.println("Insert quantity:");
+            int quantity = validation.validateNumber();
+            System.out.println("Insert name:");
+            String name = validation.validateString();
+            System.out.println("Insert price:");
+            double price = validation.validateDouble();
+            System.out.println("Insert type:");
+            String type = validation.validateString();
+            System.out.println("Insert calories:");
+            double calories = validation.validateDouble();
+
+            return new GroceryItem(Id, quantity,name,price,type,calories);
+        }
 }
+

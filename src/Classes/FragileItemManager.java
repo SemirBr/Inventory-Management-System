@@ -1,5 +1,7 @@
 package Classes;
 
+import Validation.Validation;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,17 +33,35 @@ public class FragileItemManager {
         return fragileItemList;
     }
 
-    public void saveFragileItem(FragileItem fragileItem) {
-        try (FileWriter fileWriter = new FileWriter(database, true);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+    public void saveFragileItem() {
+        FragileItem validatedFragileItem = validateFragileItemData();
+        ArrayList<FragileItem> fragileItems = listOfFragileItems();
+        boolean idExists = false;
 
-            bufferedWriter.write(fragileItem.getId() + "," + fragileItem.getQuantity() + "," + fragileItem.getName()+ "," + fragileItem.getPrice()+ "," + fragileItem.getWeightForFragileItems() + "," + fragileItem.getHeightForFragileItems());
-            bufferedWriter.newLine();
+        for (FragileItem item : fragileItems) {
+            if (item.getId() == validatedFragileItem.getId()) {
+                System.err.println("ID already exists.");
+                return;
+            }
+        }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!idExists) {
+            try (FileWriter fileWriter = new FileWriter(database, true);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                bufferedWriter.write(validatedFragileItem.getId() + "," + validatedFragileItem.getQuantity() + ","
+                        + validatedFragileItem.getName() + "," + validatedFragileItem.getPrice() + ","
+                        + validatedFragileItem.getWeightForFragileItems() + ","
+                        + validatedFragileItem.getHeightForFragileItems());
+                bufferedWriter.newLine();
+
+                System.out.println("You have inserted a new Fragile Item.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 
     public void removeFragileItemById(int id) {
         ArrayList<FragileItem> itemList = listOfFragileItems();
@@ -60,5 +80,23 @@ public class FragileItemManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private Validation validation= new Validation();
+    private FragileItem validateFragileItemData() {
+        System.out.println("Insert Id:");
+        int Id = validation.validateNumber();
+        System.out.println("Insert quantity:");
+        int quantity = validation.validateNumber();
+        System.out.println("Insert name:");
+        String name = validation.validateString();
+        System.out.println("Insert price:");
+        double price = validation.validateDouble();
+        System.out.println("Insert weightForFragileItem:");
+        double weightForFragileItems = validation.validateDouble();
+        System.out.println("Insert heightForFragileItem:");
+        double heightForFragileItems = validation.validateDouble();
+
+
+        return new FragileItem(Id, quantity,name,price,weightForFragileItems,heightForFragileItems);
     }
 }

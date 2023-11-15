@@ -1,5 +1,7 @@
 package Classes;
 
+import Validation.Validation;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,15 +31,30 @@ public class InventoryManager {
         return itemList;
     }
 
-    public void saveInventory(InventoryItem inventory) {
-        try (FileWriter fileWriter = new FileWriter(database, true);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+    public void saveInventory() {
+        InventoryItem inventoryItem = validateInventoryItemData();
+        ArrayList<InventoryItem> inventoryItems = listItems();
+        boolean idExists = false;
 
-            bufferedWriter.write(inventory.getId() + "," + inventory.getQuantity()+ "," + inventory.getName()+ "," + inventory.getPrice());
-            bufferedWriter.newLine();
+        for (InventoryItem item : inventoryItems) {
+            if (item.getId() == inventoryItem.getId()) {
+                System.err.println("ID already exists.");
+                return;
+            }
+        }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!idExists) {
+            try (FileWriter fileWriter = new FileWriter(database, true);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                bufferedWriter.write(inventoryItem.getId() + "," + inventoryItem.getQuantity() + ","
+                        + inventoryItem.getName() + "," + inventoryItem.getPrice());
+                bufferedWriter.newLine();
+
+                System.out.println("You have inserted a new Inventory Item.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -58,6 +75,20 @@ public class InventoryManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private Validation validation= new Validation();
+    private InventoryItem validateInventoryItemData() {
+        System.out.println("Insert Id:");
+        int Id = validation.validateNumber();
+        System.out.println("Insert quantity:");
+        int quantity = validation.validateNumber();
+        System.out.println("Insert name:");
+        String name = validation.validateString();
+        System.out.println("Insert price:");
+        double price = validation.validateDouble();
+
+
+        return new InventoryItem(Id, quantity,name,price);
     }
 }
 

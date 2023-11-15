@@ -1,12 +1,12 @@
 package Classes;
 
 public class GroceryItem extends InventoryItem {
-     private boolean availability;
+     private String type;
      private double calories;
 
-     public GroceryItem(int id, int quantity, String name, double price, boolean availability, double calories) {
+     public GroceryItem(int id, int quantity, String name, double price, String type, double calories) {
           super(id, quantity, name, price);
-          this.availability = availability;
+          this.type = type;
           this.calories = calories;
      }
 
@@ -14,15 +14,15 @@ public class GroceryItem extends InventoryItem {
 
      }
 
-     public boolean isAvailability() {
-          return availability;
+     public String getType() {
+          return type;
      }
 
-     public void setAvailability(boolean availability) {
-          this.availability = availability;
+     public void setType(String type) {
+          this.type = type;
      }
 
-     public Double getCalories() {
+     public double getCalories() {
           return calories;
      }
 
@@ -37,7 +37,7 @@ public class GroceryItem extends InventoryItem {
                   ", quantity=" + super.getQuantity()+
                   ", name=" + super.getName()+
                   ", price=" + super.getPrice()+
-                  ", availability=" + availability +
+                  ", type=" + type +
                   ", calories=" + calories +
                   '}';
      }

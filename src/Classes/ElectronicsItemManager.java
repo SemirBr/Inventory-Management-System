@@ -1,5 +1,7 @@
 package Classes;
 
+import Validation.Validation;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,17 +33,34 @@ public class ElectronicsItemManager {
         return electronicsItemList;
     }
 
-    public void saveElectronicsItem(ElectronicsItem electronics) {
-        try (FileWriter fileWriter = new FileWriter(database, true);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+    public void saveElectronicsItem() {
+        ElectronicsItem validatedElectronicsItem = validateElectronicsItemData();
+        ArrayList<ElectronicsItem> electronicsItems = listOfElectronicsItems();
+        boolean idExists = false;
 
-            bufferedWriter.write(electronics.getId() + "," + electronics.getQuantity() + "," +electronics.getName()+ "," + electronics.getPrice()+ "," + electronics.getPower() + "," + electronics.getColor());
-            bufferedWriter.newLine();
+        for (ElectronicsItem item : electronicsItems) {
+            if (item.getId() == validatedElectronicsItem.getId()) {
+                System.err.println("ID already exists.");
+                return;
+            }
+        }
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!idExists) {
+            try (FileWriter fileWriter = new FileWriter(database, true);
+                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+
+                bufferedWriter.write(validatedElectronicsItem.getId() + "," + validatedElectronicsItem.getQuantity() + ","
+                        + validatedElectronicsItem.getName() + "," + validatedElectronicsItem.getPrice() + ","
+                        + validatedElectronicsItem.getPower() + "," + validatedElectronicsItem.getColor());
+                bufferedWriter.newLine();
+
+                System.out.println("You have inserted a new Electronics Item.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 
     public void removeElectronicItemById(int id) {
         ArrayList<ElectronicsItem> itemList = listOfElectronicsItems();
@@ -60,6 +79,24 @@ public class ElectronicsItemManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private Validation validation= new Validation();
+    private ElectronicsItem validateElectronicsItemData() {
+        System.out.println("Insert Id:");
+        int Id = validation.validateNumber();
+        System.out.println("Insert quantity:");
+        int quantity = validation.validateNumber();
+        System.out.println("Insert name:");
+        String name = validation.validateString();
+        System.out.println("Insert price:");
+        double price = validation.validateDouble();
+        System.out.println("Insert power:");
+        double power = validation.validateDouble();
+        System.out.println("Insert color:");
+        String color = validation.validateString();
+
+
+        return new ElectronicsItem(Id, quantity,name,price,power,color);
     }
 }
 
